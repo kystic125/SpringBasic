@@ -30,7 +30,21 @@ public class ConfigurationSingletonTest {
 
         assertThat(memberService.getMemberRepository()).isSameAs(memberRepository);
         assertThat(orderService.getMemberRepository()).isSameAs(memberRepository);
+    }
 
+    @Test
+    void configurationDeep() {
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        AppConfig bean = ac.getBean(AppConfig.class);
 
+        System.out.println("bean = " + bean.getClass());
+        // 순수한 클래스라면 class hello.core.AppConfig 까지만 나와야 하지만
+        // bean = class hello.core.AppConfig$$SpringCGLIB$$0 라고 나오게 됨
+
+        // 스프링이 CGLIB 라는 바이트 코드 조작 라이브러리를 사용해서
+        // AppConfig 클래스를 상속받은 임의의 다른 클래스를 만들고
+        // 그 다른 클래스를 스프링 반으로 등록한 것 !!!
+        
+        // @Configuration 없을 때 해결 방법 -> @Autowired 사용
     }
 }

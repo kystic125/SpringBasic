@@ -12,7 +12,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 // AppConfig: 구체 클래스를 선택한다
-@Configuration
+@Configuration // 이게 없으면 Line49의 예상 결과가 나오게 됨 // 없어도 실행은 가능
+// 또한 SpringBean에서 가져온 것이 아니라 new xxxx를 그대로 내보내게 됨
+// 즉, MemberRepository memberRepository = new MemoryMemberRepository()와 같은 형태로 전달
 public class AppConfig {
 
     @Bean
