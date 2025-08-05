@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
- * 1. 타입 매충
+ * 1. 타입 매칭
  * 2. 파라미터 명 매칭
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
@@ -53,6 +53,7 @@ public class OrderServiceImpl implements OrderService {
     }
  * @Qualifier를 추가하면 매칭되는 부분을 실행한다
  * 만약 찾지 못한다면? (즉, @Qualifier("mainDiscountPollicy")가 없다면
+ * (Annotation으로 등록했다면 @MainDiscountPolicy라고 해도 됨)
  * mainDiscountPolicy라는 스프링 빈을 추가로 찾는다 (그래도 없으면 예외)
  * -> 명확한 용도로 사용하도록 주의
 */
