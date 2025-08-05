@@ -33,7 +33,34 @@ public class OrderServiceImpl implements OrderService {
 
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }
-    
+
+    /**
+ * 1. 타입 매충
+ * 2. 파라미터 명 매칭
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+ * -> 위 코드에서 DiscountPolicy rateDiscountPolicy와 this.discountPolicy = rateDiscountPolicy로 했다면
+ * 기존에는 DiscountPolicy 밑에 Fix와 Rate 2개가 있어서 오류가 발생했지만
+ * rateDiscountPolicy를 자동으로 찾아가서 오류가 해결됨
+*/
+
+/**
+    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+ * @Qualifier를 추가하면 매칭되는 부분을 실행한다
+ * 만약 찾지 못한다면? (즉, @Qualifier("mainDiscountPollicy")가 없다면
+ * mainDiscountPolicy라는 스프링 빈을 추가로 찾는다 (그래도 없으면 예외)
+ * -> 명확한 용도로 사용하도록 주의
+*/
+
+/** 추천!!
+ * @primary 사용 (@Primary가 우선순위로 동작한다)
+ */
+
     // 테스트 용도
     public MemberRepository getMemberRepository() {
         return memberRepository;
